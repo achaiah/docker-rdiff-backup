@@ -1,4 +1,7 @@
 # docker-rdiff-backup
+    - Latest version: rdiff-backup 2.0.0
+    - Note that 2.0.0 is not compatible with previous server versions so must update both client and server side at the same time.
+
 Docker container with ssh and rdiff-backup to use as a backup solution. I use it to back up a remote host to a local NAS (but you can do remote-to-remote or local-to-remote as well, just need rdiff-backup on each side).
 
 Mount your volumes from host into this container. I suggest something simple like `/bckp/dir1`, `/bckp/dir2/dir2_subdir` etc. You may also need to expose a port that is different than 22 (e.g. if you're running through a reverse proxy). In that case, you will want to specify a `remote-schema` for your rdiff-backup like so:
@@ -37,8 +40,8 @@ It is generally a bad idea to use login/password so instead you should use rsa k
      - /nginx:/bckp/nginx
      - /data:/bckp/data
      - /app:/bckp/app
-     -/rdiff/authorized_keys:/etc/ssh/sshd_config
-     -/rdiff/.ssh/authorized_keys:/home/alpine/.ssh/authorized_keys
+     - /rdiff/authorized_keys:/etc/ssh/sshd_config
+     - /rdiff/.ssh/authorized_keys:/home/alpine/.ssh/authorized_keys
  ```
  Finally, you'll want to make sure you reference the rsa file when calling rdiff-backup:
  ```
